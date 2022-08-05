@@ -1,0 +1,145 @@
+.product {
+    height: calc(100vh - 100px);
+    display: flex;
+    &__left {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__right {
+        flex: 1;
+        padding: 20px;
+    }
+    &__imgContainer {
+        width: 80%;
+        height: 80%;
+        position: relative;
+    }
+    &__title {
+        padding: 20px 0;
+        font-size: 36px;
+    }
+    &__price {
+        color: #d1411e;
+        font-size: 24px;
+        font-weight: 400;
+        border-bottom: 1px solid #d1411e;
+    }
+    &__desc {
+        padding: 20px 0;
+        font-size: 20px;
+    }
+    &__choose {
+        padding: 20px 0;
+    }
+    &__sizes {
+        display: flex;
+        width: 30%;
+        justify-content: space-between;
+        margin: 20px 0;
+    }
+    &__quant {
+        margin-bottom: 20px;
+    }
+    &__size {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        cursor: pointer;
+        &:nth-child(2) {
+            width: 40px;
+            height: 40px;
+        }
+        &:last-child {
+            width: 50px;
+            height: 50px; 
+        }
+    }
+    &__sizeText {
+        position: absolute;
+        top: -5px;
+        right: -20px;
+        background-color: teal;
+        color: white;
+        font-size: 12px;
+        padding: 0 5px;
+        border-radius: 10px;
+    }
+    &__ingredients {
+        display: flex;
+        margin-bottom: 30px;
+    }
+    &__option {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    &__checkbox {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+    &__quantInput {
+        width: 80px;
+        height: 30px;
+        padding: 10px;
+    }
+    &__buyButton {
+        height: 30px;
+        margin-left: 10px;
+        background-color: #d1411e;
+        color: white;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 0 20px;
+    }
+    &__selected {
+        animation: selected 1s ease infinite alternate;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .product {
+        height: auto;
+        text-align: center;
+        flex-direction: column;
+        margin-top: 20px;
+        &__imgContainer {
+            width: 70vw;
+            height: 70vw;
+        }   
+        &__ingredients {
+            flex-direction: column;
+        }
+        &__option {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        &__checkbox {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+        }
+        &__sizes {
+            width: 100%;
+            padding: 0 20px;
+        }
+        &__quantInput, &__buyButton {
+            height: 50px;
+            padding: 0 20px;
+        }
+    }
+}
+
+@keyframes selected {
+    from {
+        opacity: 0.2;
+    } to {
+        opacity: 1;
+    }
+}

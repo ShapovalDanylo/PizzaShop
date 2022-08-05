@@ -1,0 +1,124 @@
+.cart {
+    padding: 50px;
+    display: flex;
+    &__left {
+        flex: 2
+    }
+    &__right {
+        flex: 1
+    }
+    &__table {
+        width: 100%;
+        border-spacing: 20px;
+    }
+    &__tr > td > p {
+        padding: 5px 0;
+    }
+    &__name {
+        font-weight: 500;
+        color: #d1411e;
+        font-size: 18px;
+    }
+    &__total {
+        font-weight: 500;
+        font-size: 18px;
+    }
+    &__imageContainer { 
+        width: 100px;
+        height: 100px;
+        position: relative;
+    }
+    &__wrapper {
+        width: 90%;
+        max-height: 300px;
+        background-color: #333333;
+        padding: 50px;
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: white;
+        & > div {
+            padding: 5px 0;
+        }
+    }
+    &__totalTextTitle {
+        margin-right: 10px;
+    }
+    &__buyButton {
+        height: 30px;
+        color: #d1411e;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    &__img {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 10px;
+    }
+    td {
+        text-align: center;
+    }
+    &__payment {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    &__paybutton {
+        padding: 10px 5px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        background-color: white;
+        color: teal;
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cart {
+        flex-direction: column;
+        padding: 20px;
+        &__table {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        &__title {
+            display: none;
+        }
+        &__tr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        &__name, &__total {
+            font-size: 24px;
+        }
+        &__imageContainer {
+            width: 35vw;
+            height: 35vw;
+        }
+        &__extras, &__quant, &__price {
+            font-size: 22px;
+        }
+        &__price::before {
+            content: 'Price: ';
+            font-weight: 500;
+        }
+        &__quant::before {
+            content: 'Quantity: ';
+            font-weight: 500;
+        }
+        &__total::before {
+            content: 'Total: ';
+            font-weight: 500;
+        }
+        &__wrapper {
+            width: 100%;
+        }
+    }
+}

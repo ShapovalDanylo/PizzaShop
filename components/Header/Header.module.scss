@@ -20,11 +20,11 @@
         }
     }
     &__callButton {
-         background-color: white;
-         border-radius: 50%;
-         padding: 10px;
-         width: 50px;
-         height: 50px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 10px;
+        width: 50px;
+        height: 50px;
     }
     &__texts {
         margin-left: 20px;
@@ -82,11 +82,20 @@
     }
 }
 
-@media screen and (max-width: 480px) {
-    .header__item:nth-child(2) {
-        display: none;
+@media screen and (max-width: 970px){
+    .header {
+        &__text {
+            display: none;
+        }
     }
-    .header__item:nth-child(1) {
-        flex: 3;
+}
+
+@media screen and (max-width: 480px) {
+    .header {
+        padding: 0 20px;
+        justify-content: center;
+        &__list > li {
+            display: none;
+        }
     }
 }

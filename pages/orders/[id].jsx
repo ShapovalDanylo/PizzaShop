@@ -133,8 +133,8 @@ const Order = ({ order }) => {
                     <div className={classes.order__totalText}>
                         <b className={classes.order__totalTextTitle}>Total:</b>${order.total}
                     </div>
-                    <button disabled className={order.paymethod === 0 ? `${classes.order__buyButton} ${classes.order__buyButton_unpaid}` : `${classes.order__buyButton}`}>
-                        {order.paymethod === 0 ? "NOT PAID" : "PAID"}
+                    <button disabled className={order.paymethod ? `${classes.order__buyButton} ${classes.order__buyButton_unpaid}` : `${classes.order__buyButton}`}>
+                        {order.paymethod ? "NOT PAID" : "PAID"}
                     </button>
                 </div>
             </div>

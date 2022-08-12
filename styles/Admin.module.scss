@@ -1,0 +1,31 @@
+.admin {
+    padding: 50px;
+    display: flex;
+    &__item {
+        flex: 1;
+    }
+    &__table {
+        width: 100%;
+        border-spacing: 20px;
+        text-align: left;
+    }
+    &__button {
+        border: none;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+        &:first-child {
+            background-color: teal;
+            margin-right: 10px;
+        }
+        &:last-child {
+            background-color: crimson;
+        }
+    }
+    &__paid {
+        color: green;
+    }
+    &__notPaid {
+        color: red;
+    }
+}

@@ -3,6 +3,9 @@
     display: flex;
     &__item {
         flex: 1;
+        &:last-child {
+            flex: 1.5
+        }
     }
     &__table {
         width: 100%;

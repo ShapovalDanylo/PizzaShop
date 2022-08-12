@@ -9,7 +9,7 @@ const Admin = ({ orders, products }) => {
     const [orderList, setOrderList] = useState(orders)
     const statuses = ["preparing", "on the way", "delivered"]
 
-    const handleDelete = async id => {
+    const handleProductDelete = async id => {
         try {
             await axios.delete(`http://localhost:3000/api/products/${id}`)
             setProductList(productList.filter( product => product._id !== id))
@@ -18,14 +18,22 @@ const Admin = ({ orders, products }) => {
         }
     }
 
-    const handleStatus = async id => {
+    const handleStatus = async (id, flag) => {
         try {
             const order = orderList.filter( order => order._id === id)[0]
-            const resp = await axios.put(`http://localhost:3000/api/orders/${id}`, { status: order.status + 1})
-            setOrderList([
-                resp.data,
-                ...orderList.filter( order => order._id !== id)
-            ])
+            const resp = await axios.put(`http://localhost:3000/api/orders/${id}`, { status: flag === "Forward" ? order.status + 1 : order.status - 1})
+            const newOrderList = [...orderList]
+            newOrderList[newOrderList.findIndex( order => order._id === id)] = resp.data
+            setOrderList(newOrderList)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const handleOrderDelete = async id => {
+        try {
+            await axios.delete(`http://localhost:3000/api/orders/${id}`)
+            setOrderList(orderList.filter( order => order._id !== id))
         } catch (e) {
             console.log(e)
         }
@@ -62,7 +70,7 @@ const Admin = ({ orders, products }) => {
                                 <td>${product.prices[0]}</td>
                                 <td>
                                     <button className={classes.admin__button}>Edit</button>
-                                    <button className={classes.admin__button} onClick={() => handleDelete(product._id)}>Delete</button>
+                                    <button className={classes.admin__button} onClick={() => handleProductDelete(product._id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}
@@ -92,9 +100,11 @@ const Admin = ({ orders, products }) => {
                                         <span className={classes.admin__paid}>PAID</span> : 
                                         <span className={classes.admin__notPaid}>NOT PAID</span>
                                     }</td>
-                                    <td>{statuses[order.status]?.toUpperCase()}</td>
+                                    <td>{statuses[order.status].toUpperCase()}</td>
                                     <td>
-                                        <button disabled={order.status === 2} onClick={() => handleStatus(order._id)}>Next Stage</button>
+                                        <button disabled={order.status === 0} onClick={() => handleStatus(order._id, "Back")}>Previous Stage</button>
+                                        <button disabled={order.status === 2} onClick={() => handleStatus(order._id, "Forward")}>Next Stage</button>
+                                        <button onClick={() => handleOrderDelete(order._id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}

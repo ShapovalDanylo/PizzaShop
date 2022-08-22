@@ -28,7 +28,7 @@ const Cart = () => {
         try {
           const resp = await axios.post("http://localhost:3000/api/orders", data);
           if (resp.status === 201) {
-            router.push(`/orders/${resp.data._id}`);
+            router.push(`/order/${resp.data._id}`);
             dispatch(resetCart());
           }
         } catch (e) {
@@ -158,7 +158,7 @@ const Cart = () => {
                             <button className={classes.cart__paybutton} onClick={() => setModalCash(true)}>CASH ON DELIVERY</button>
                             <PayPalScriptProvider
                                 options={{
-                                "client-id": process.env.NEXT_PUBLIC_PAYPAL_ID,
+                                "client-id": "AeZNr7nOoSRfpvgTHvIdS-kFkSJUnteLfcuimxMWhGvCARlNIyZp1LMbHwxXv5vygt6Bc4vh3_a7LkQ6",
                                 components: "buttons",
                                 currency: "USD",
                                 "disable-funding": "venmo,credit,card,p24",

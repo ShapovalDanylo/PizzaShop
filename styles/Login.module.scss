@@ -1,0 +1,31 @@
+.login {
+  height: calc(100vh - 100px); 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  &__wrapper, &__form {
+    display: flex;
+    flex-direction: column;
+    & > h1 {
+        margin-bottom: 20px;
+    }
+  }
+  &__input {
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  &__button {
+    height: 40px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: teal;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  &__error {
+    font-size: 13px;
+    color: red;
+  }
+}

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import classes from '../../styles/Admin.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
 import axios from 'axios';
 
 const Admin = ({ orders, products }) => {
 
     const [productList, setProductList] = useState(products)
     const [orderList, setOrderList] = useState(orders)
+
     const statuses = ["preparing", "on the way", "delivered"]
 
     const handleProductDelete = async id => {
@@ -65,7 +67,11 @@ const Admin = ({ orders, products }) => {
                                         alt={product.title}
                                     />
                                 </td>
-                                <td>{product._id.slice(0, 5)}...</td>
+                                <td>
+                                    <Link href={`/product/${product._id}`} passHref>
+                                        <a className={classes.admin__id}>{product._id.slice(0, 5)}...</a>
+                                    </Link>
+                                </td>
                                 <td>{product.title}</td>
                                 <td>${product.prices[0]}</td>
                                 <td>
@@ -91,9 +97,13 @@ const Admin = ({ orders, products }) => {
                             </tr>
                         </thead>
                         <tbody>
-                           {orderList.map( order => (
-                                <tr className={classes.admin__tr}>
-                                    <td>{order._id.slice(0, 5)}...</td>
+                           {orderList.map( order => (   
+                                <tr className={classes.admin__tr} key={order._id}>
+                                    <td>
+                                        <Link href={`/order/${order._id}`} passHref>
+                                            <a className={classes.admin__id}>{order._id.slice(0, 5)}...</a>
+                                        </Link>
+                                    </td>
                                     <td>{order.customer}</td>
                                     <td>{order.total}</td>
                                     <td>{order.paymethod ? 
@@ -115,7 +125,16 @@ const Admin = ({ orders, products }) => {
     );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async context => {
+    const myCookie = context.req?.cookies || ""
+    if(myCookie.token !== process.env.AUTH_TOKEN) {
+        return {
+            redirect: {
+                destination: "/admin/login",
+                permanent: false
+            }
+        }
+    }
     const products = await axios.get("http://localhost:3000/api/products")
     const orders = await axios.get("http://localhost:3000/api/orders")
     return {

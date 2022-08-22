@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from '../../styles/Product.module.scss';
 import Image from 'next/image';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../store/slices/cartSlice';
+import AddButton from '../../components/AddButton/AddButton';
+import AddComponent from '../../components/AddComponent/AddComponent';
 
-const Product = ({ product }) => {
+const Product = ({ item, isAdmin }) => {
 
     const [size, setSize] = useState(0)
-    const [price, setPrice] = useState(product.prices[0])
     const [extras, setExtras] = useState([])
     const [quant, setQuant] = useState(1)
+    const [modal, setModal] = useState(false)
+    const [product, setProduct] = useState(item)
+    const [price, setPrice] = useState(product.prices[0])
+    const [update, setUpdate] = useState(false)
+ 
+    const toggleProduct = async () => {
+        const resp = await axios.get(`http://localhost:3000/api/products/${item._id}`)
+        setProduct(resp.data)
+        setPrice(product.prices[0])
+    }
+
+    useEffect(() => {
+        modal ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'visible'
+    }, [modal])
+
+    useEffect(() => {
+        toggleProduct()
+    }, [update])
 
     const dispatch = useDispatch()
 
@@ -109,18 +128,29 @@ const Product = ({ product }) => {
                         onClick={handleAddProduct}
                     >Add to Cart</button>
                 </div>
+                {isAdmin && <AddButton setModal={setModal} text="Edit product" />}
             </div>
+            {modal && <AddComponent setModal={setModal} currentProduct={{
+                    status: true,
+                    content: {...product}
+            }} setUpdate={setUpdate}/>}
         </div>
     );
 };
 
 export default Product;
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, req }) => {
+    const myCookie = req?.cookies || ""
+    let isAdmin = false
+    if (myCookie.token === process.env.AUTH_TOKEN) {
+        isAdmin = true
+    }
     const resp = await axios.get(`http://localhost:3000/api/products/${params.id}`);
     return {
       props: {
-        product: resp.data
+        item: resp.data,
+        isAdmin
       }
     }
 }

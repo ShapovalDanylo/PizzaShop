@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './AddButton.module.scss';
 
-const AddButton = ({ setModal }) => {
+const AddButton = ({ setModal, text }) => {
 
     const handleModal = () => setModal(true)
 
@@ -10,7 +10,7 @@ const AddButton = ({ setModal }) => {
             className={classes.button}
             onClick={handleModal}
         >
-            Add new Pizza
+            {text}
         </div>
     );
 };

@@ -9,7 +9,18 @@ import Slider from '../components/Slider/Slider'
 
 export default function Home({ productList, isAdmin }) {
 
+  const [list, setList] = useState(productList)
+  const [update, setUpdate] = useState(false)
   const [modal, setModal] = useState(false)
+
+  const toggleProductList = async () => {
+    const resp = await axios.get("http://localhost:3000/api/products")
+    setList(resp.data)
+  }
+
+  useEffect(() => {
+    toggleProductList()
+  }, [update])
 
   useEffect(() => {
     modal ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'visible'
@@ -23,11 +34,11 @@ export default function Home({ productList, isAdmin }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Slider />
-      {isAdmin && <AddButton setModal={setModal}/>}
+      {isAdmin && <AddButton setModal={setModal} text={"Add new Pizza"}/>}
       <ProductList 
-        productList={productList}
+        productList={list}
       />
-      {modal && <AddComponent setModal={setModal}/>}
+      {modal && <AddComponent setModal={setModal} setUpdate={setUpdate}/>}
     </div>
   )
 }

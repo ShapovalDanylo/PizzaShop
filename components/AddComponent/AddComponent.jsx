@@ -13,21 +13,13 @@ const AddComponent = ({ setModal, currentProduct = {
         extras: []
     }}, setUpdate}) => {
 
-        console.log(currentProduct)
-
     const [file, setFile] = useState(null)
     const [extraOptioins, setExtraOptioins] = useState([...currentProduct.content.extras])
     const [extra, setExtra] = useState({
         name: '',
         price: 0
     })
-    // const [product, setProduct] = useState({
-    //     title: '' || currentProduct.title,
-    //     desc: '' || currentProduct.desc,
-    //     img: file || currentProduct.img,
-    //     prices: [] || currentProduct.prices,
-    //     extras: [] || currentProduct.extras,
-    // })
+
     const [product, setProduct] = useState(currentProduct.content)
 
     useEffect(() => {

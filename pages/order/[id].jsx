@@ -143,18 +143,28 @@ const Order = ({ order }) => {
 };
 
 export const getServerSideProps = async ({ params, req }) => {
-    const myCookie = req.cookies || "";
-    if(!JSON.parse(myCookie?.orders)?.includes(params.id) && myCookie.token !== process.env.AUTH_TOKEN) {
+    const myCookie = req.cookies || ""
+    if(myCookie?.orders || myCookie?.token) {
+        if(myCookie?.token === process.env.AUTH_TOKEN || JSON.parse(myCookie.orders).includes(params.id)) {
+            const resp = await axios.get(`http://localhost:3000/api/orders/${params.id}`)
+            return {
+                props: { order: resp.data }
+            }
+        } else {
+            return {
+                redirect: {
+                    destination: "/admin/login",
+                    permanent: false
+                }
+            }  
+        }
+    } else {
         return {
             redirect: {
                 destination: "/admin/login",
                 permanent: false
             }
         }
-    }
-    const resp = await axios.get(`http://localhost:3000/api/orders/${params.id}`)
-    return {
-        props: { order: resp.data }
     }
 }
 

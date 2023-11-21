@@ -157,7 +157,7 @@ const Cart = () => {
                             <button className={classes.cart__paybutton} onClick={() => setModalCash(true)}>CASH ON DELIVERY</button>
                             <PayPalScriptProvider
                                 options={{
-                                "client-id": "AeZNr7nOoSRfpvgTHvIdS-kFkSJUnteLfcuimxMWhGvCARlNIyZp1LMbHwxXv5vygt6Bc4vh3_a7LkQ6",
+                                "client-id": "AZ1T1p_S_7lhZ6xIgeiQFcAFmIaJDe4DITqJ0cHX6LXVHq4W-URd17LIv1TSiHYB1HWrvy_6Lyk-qwHR",
                                 components: "buttons",
                                 currency: "USD",
                                 "disable-funding": "venmo,credit,card,p24",

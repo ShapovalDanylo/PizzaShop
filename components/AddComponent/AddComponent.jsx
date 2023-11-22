@@ -32,7 +32,19 @@ const AddComponent = ({ setModal, currentProduct = {
         setProduct({...product, prices}) 
     }
 
-    const handleExtra = () => (extra.name && extra.price) && setExtraOptioins(prev => [...prev, extra])
+    const handleExtra = () => {
+        if(extra.name && extra.price) {
+            setExtraOptioins(prev => [...prev, extra])
+            setExtra({
+                name: '',
+                price: 0
+            })
+        }
+    }
+
+    const handleDeleteExtra = (index) => {
+        setExtraOptioins(prev => prev.filter(prevItem => prevItem.name != prev[index].name))
+    }
 
     const handleCreate = async () => {
         const data = new FormData()
@@ -66,8 +78,6 @@ const AddComponent = ({ setModal, currentProduct = {
             console.log(e)
         }
     }
-
-    console.log(product)
     
     return (
         <div className={classes.modal}>
@@ -104,7 +114,7 @@ const AddComponent = ({ setModal, currentProduct = {
                 </div>
                 <div className={classes.modal__item}>
                     {extraOptioins.map((option, index) => (
-                        <div key={index}>{index + 1}. {option.name} - ${option.price}</div>
+                        <div onClick={() => handleDeleteExtra(index)} key={index}>{index + 1}. {option.name} - ${option.price}</div>
                     ))}
                 </div>
                 <button className={classes.modal__addButton} onClick={currentProduct.status ? handleUpdate : handleCreate}>{currentProduct.status ? "Edit" : "Create"}</button>

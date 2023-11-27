@@ -122,7 +122,7 @@ const Cart = () => {
                                 <td>
                                     <p className={classes.cart__extras}>
                                         {product.extras.map( (extra, index, array) => (
-                                            <span>{extra.name}{index !== array.length - 1 && ', '}</span>
+                                            <span key={index}>{extra.name}{index !== array.length - 1 && ', '}</span>
                                         ))}
                                     </p>
                                 </td>

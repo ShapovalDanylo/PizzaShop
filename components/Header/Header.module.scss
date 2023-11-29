@@ -84,6 +84,11 @@
 
 @media screen and (max-width: 970px){
     .header {
+        padding: 0 20px;
+        justify-content: center;
+        &__list > li {
+            display: none;
+        }
         &__text {
             display: none;
         }
